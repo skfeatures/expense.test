@@ -246,7 +246,6 @@
 
         /* ----- PRINT SPECIFIC STYLES ----- */
         @media print {
-            /* This single line guarantees the print button NEVER shows up on the paper */
             .no-print {
                 display: none !important;
             }
@@ -298,8 +297,12 @@
                 width: 40% !important;
             }
 
-            input[type="date"]::-webkit-calendar-picker-indicator {
+            /* Aggressively stripping mobile native UI elements from dates */
+            input[type="date"]::-webkit-calendar-picker-indicator,
+            input[type="date"]::-webkit-inner-spin-button,
+            input[type="date"]::-webkit-clear-button {
                 display: none !important;
+                -webkit-appearance: none !important;
             }
 
             .form-group input[type="date"] {
@@ -308,6 +311,12 @@
                 min-width: 100px !important;
                 max-width: 100px !important;
                 padding-left: 0 !important;
+                
+                /* This removes the native mobile arrow styling */
+                -webkit-appearance: none !important;
+                -moz-appearance: none !important;
+                appearance: none !important;
+                background: transparent !important;
             }
             
             .form-group .time-picker {
@@ -440,9 +449,8 @@
                 </div>
             </div>
 
-            <!-- New Print Button Section -->
+            <!-- Print Button Section -->
             <div class="print-btn-container no-print">
-                <!-- Using type="button" prevents the form from accidentally submitting/refreshing the page -->
                 <button type="button" class="print-btn" onclick="window.print()">🖨️ Print Form</button>
             </div>
         </form>
@@ -455,8 +463,8 @@
         flatpickr(".time-picker", {
             enableTime: true,
             noCalendar: true,
-            dateFormat: "h:i K", // 12-hour format with AM/PM
-            disableMobile: true  // Forces this modern UI everywhere
+            dateFormat: "h:i K",
+            disableMobile: true 
         });
     </script>
 
