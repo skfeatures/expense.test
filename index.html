@@ -172,6 +172,29 @@
             height: 30px;
         }
 
+        /* ----- PRINT BUTTON STYLES ----- */
+        .print-btn-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .print-btn {
+            background-color: #2c3e50;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .print-btn:hover {
+            background-color: #1a252f;
+        }
+
         /* ----- MOBILE RESPONSIVE STYLES ----- */
         @media screen and (max-width: 768px) {
             body {
@@ -204,14 +227,12 @@
                 margin-bottom: 8px;
             }
 
-            /* Override the fixed widths to allow full-width inputs on phones */
             .form-group input[type="date"],
             .form-group .time-picker {
                 min-width: 100%;
                 max-width: 100%;
             }
 
-            /* Stack the signature boxes vertically */
             .signature-section {
                 flex-direction: column;
                 gap: 40px;
@@ -225,6 +246,11 @@
 
         /* ----- PRINT SPECIFIC STYLES ----- */
         @media print {
+            /* This single line guarantees the print button NEVER shows up on the paper */
+            .no-print {
+                display: none !important;
+            }
+
             body {
                 background-color: transparent;
                 padding: 0;
@@ -238,7 +264,7 @@
             }
 
             .row-group {
-                flex-direction: row !important; /* Forces items back to side-by-side even if printed from mobile */
+                flex-direction: row !important; 
                 flex-wrap: nowrap !important; 
                 gap: 15px !important; 
                 width: 100%;
@@ -412,6 +438,12 @@
                     <div class="signature-line"></div>
                     <label>Approved by</label>
                 </div>
+            </div>
+
+            <!-- New Print Button Section -->
+            <div class="print-btn-container no-print">
+                <!-- Using type="button" prevents the form from accidentally submitting/refreshing the page -->
+                <button type="button" class="print-btn" onclick="window.print()">🖨️ Print Form</button>
             </div>
         </form>
     </div>
